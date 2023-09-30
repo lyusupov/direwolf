@@ -1122,7 +1122,9 @@ static void send_packet_to_server (packet_t pp, int chan)
 	ax25_format_addrs (pp, msg);
 	msg[strlen(msg)-1] = '\0';    /* Remove trailing ":" */
 
-	if (save_igate_config_p->tx_chan >= 0) {
+	if (strcmp(save_igate_config_p->t2_server_name,"aprs.glidernet.org") == 0) {
+	  strlcat (msg, ",qAS,", sizeof(msg));
+	} else if (save_igate_config_p->tx_chan >= 0) {
 	  strlcat (msg, ",qAR,", sizeof(msg));
 	}
 	else {
@@ -2243,7 +2245,7 @@ Send it now and remember that fact.
 Digipeat it.  Notice how it has a trailing CR.
 TODO:  Why is the CRC different?  Content looks the same.
 
-	ig_to_tx_remember [38] = ch0 d1 1447683040 27598 "N1ZKO-7>T2TS7X:`c6wl!i[/>"4]}[scanning]="
+	ig_to_tx_remember [38] = ch0 d1 1447683040 27598 "N1ZKO-7>T2TS7X:`c6wl!i[/>"4]}[scanning]="
 	[0H] N1ZKO-7>T2TS7X,WB2OSZ-14*,WIDE2-1:`c6wl!i[/>"4]}[scanning]=<0x0d>
 
 Now we hear it again, thru a digipeater.
